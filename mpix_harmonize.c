@@ -282,9 +282,14 @@ static void sync_clocks(mpix_harmonize_state_t* state, MPI_Comm comm)
 
 static double get_bcast_time(MPI_Comm comm) {
   int n_bcasts = 20;
+  int n_warmup = 4;
   double bcast_data = 1.0;  // same as timestamp later
   double max_avg_time = 0.0;
   double timestamp;
+
+  for(int i=0; i<n_warmup; i++) {
+    MPI_Bcast(&bcast_data, 1, MPI_DOUBLE, 0, comm);
+  }
 
   for(int i=0; i<n_bcasts; i++) {
     timestamp = MPITS_get_time();
