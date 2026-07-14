@@ -39,7 +39,7 @@ set(MPIX_HARMONIZE_INSTALL_CMAKEDIR ${CMAKE_INSTALL_DATADIR}/cmake/mpix-harmoniz
 
 FetchContent_Declare(
         MPITS
-        GIT_REPOSITORY git@github.com:hunsa/mpi-time-sync.git
+        GIT_REPOSITORY https://github.com/hunsa/mpi-time-sync
         GIT_TAG main)
 
 FetchContent_MakeAvailable(MPITS)
@@ -56,7 +56,7 @@ add_library(MPIXHarmonize::mpix-harmonize ALIAS mpix-harmonize)
 target_link_libraries(mpix-harmonize PUBLIC MPITS::mpits MPI::MPI_C)
 set_target_properties(mpix-harmonize PROPERTIES VERSION ${PROJECT_VERSION})
 set_target_properties(mpix-harmonize PROPERTIES PUBLIC_HEADER mpix_harmonize.h)
-set_target_properties(mpix-harmonize PROPERTIES INSTALL_RPATH ${CMAKE_INSTALL_LIBDIR})
+set_target_properties(mpix-harmonize PROPERTIES INSTALL_RPATH ${CMAKE_INSTALL_PREFIX}/${CMAKE_INSTALL_LIBDIR})
 
 # check if we're being built as a sub-project
 STRING(COMPARE EQUAL ${CMAKE_CURRENT_BINARY_DIR} ${CMAKE_CURRENT_SOURCE_DIR} MPIX_HARMONIZE_BUILD_INPLACE)
